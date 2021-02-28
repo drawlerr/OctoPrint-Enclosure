@@ -1438,7 +1438,8 @@ class EnclosurePlugin(octoprint.plugin.StartupPlugin, octoprint.plugin.TemplateP
         try:
             if queue_id is not None:
                 self._logger.debug("running scheduled queue id %s", queue_id)
-            self.gpio.set_PWM_dutycycle(gpio_pin, pwm_value)
+            pwm_byte_val = (pwm_value / 100) * 255
+            self.gpio.set_PWM_dutycycle(gpio_pin, pwm_byte_val)
         except Exception as ex:
             self.log_error(ex)
             pass
